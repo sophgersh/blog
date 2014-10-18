@@ -20,10 +20,16 @@ def new_post(params):
     slug = slugify(params['title'])
     params['slug'] = slug
 
-    new = get_db().cursor().execute(query, params)
-    get_db().commit()
+    #check if slug is in there already
+    s = "SELECT count(*) FROM posts WHERE slug = ?"
+    get_db().cursor().execute(s , (slug,))
+    data=get_db().cursor().fetchone()[0]
+    if data == 0:
+          
+        new = get_db().cursor().execute(query, params)
+        get_db().commit()
 
-    return new.fetchone()
+        return new.fetchone()
 
 
 def find_post(slug):
@@ -59,3 +65,6 @@ def setup():
 
 def _connect_to_database():
     return sqlite3.connect(DATABASE)
+
+
+

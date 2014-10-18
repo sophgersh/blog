@@ -4,9 +4,9 @@ conn = sqlite3.connect('blog.db')
 c = conn.cursor()
 
 
-def find_post(title):
-    query = 'SELECT * FROM blogs WHERE title = ?'
-    posts = c.execute(query, title)
+def find_post(slug):
+    query = 'SELECT * FROM blogs WHERE slug = ?'
+    posts = c.execute(query, slug)
     return posts.fetchone()
 
 

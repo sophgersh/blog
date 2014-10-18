@@ -10,9 +10,9 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/<title>')
-def post(title):
-    post = db.find_post(title)
+@app.route('/<slug>')
+def post(slug):
+    post = db.find_post(slug)
     return render_template('post.html', d={'post': post})
 
 if __name__ == '__main__':

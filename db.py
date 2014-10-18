@@ -13,7 +13,7 @@ def find_post(title):
 # Use this only to initialize a new database for the first time
 def setup():
     queries = [
-        '''CREATE TABLE posts
+        '''CREATE TABLE posts (
         id integer primary key,
         title text,
         content text,

@@ -21,7 +21,7 @@ def find_post(slug):
 
 def most_recent_posts(n):
     query = 'SELECT * FROM posts ORDER BY id DESC LIMIT ?'
-    posts = get_db().execute(query, n)
+    posts = get_db().execute(query, (n,))
     return posts
 
 

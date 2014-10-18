@@ -1,4 +1,6 @@
-BLOG
+# BLOG
+
+## Make sure you run `pip install python-slugify`
 
 PAGE:
 

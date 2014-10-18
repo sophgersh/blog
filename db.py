@@ -5,7 +5,7 @@ c = conn.cursor()
 
 
 def find_post(slug):
-    query = 'SELECT * FROM blogs WHERE slug = ?'
+    query = 'SELECT * FROM posts WHERE slug = ?'
     posts = c.execute(query, slug)
     return posts.fetchone()
 

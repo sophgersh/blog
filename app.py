@@ -1,8 +1,9 @@
-from flask import Flask, g, render_template
+from flask import flash, Flask, g, redirect, render_template, request
 
 import db
 
 app = Flask(__name__)
+app.secret_key = 'a'
 
 
 @app.route('/')
@@ -16,6 +17,21 @@ def index():
 def post(slug):
     post = db.find_post(slug)
     return render_template('post.html', d={'post': post})
+
+
+@app.route('/posts/new', methods=['POST'])
+def new_post():
+    params = {}
+    params['title'] = request.form['title']
+    params['content'] = request.form['content']
+
+    post = db.new_post(params)
+
+    if post:
+        return redirect('/%s' % post['slug'])
+    else:
+        flash('Invalid blog post')
+        return redirect('/')
 
 
 @app.teardown_appcontext

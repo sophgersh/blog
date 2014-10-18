@@ -1,6 +1,7 @@
 import sqlite3
 
 from flask import g
+from slugify import slugify
 
 DATABASE = 'blog.db'
 
@@ -13,9 +14,18 @@ def get_db():
     return db
 
 
+def new_post(params):
+    query = "INSERT INTO posts (title, content, slug) VALUES ('?', '?', '?')"
+
+    slug = slugify(params['title'])
+    params['slug'] = slug
+    get_db().execute(query, params)
+    return find_post(slug)
+
+
 def find_post(slug):
     query = 'SELECT * FROM posts WHERE slug = ?'
-    posts = get_db().execute(query, slug)
+    posts = get_db().execute(query, (slug,))
     return posts.fetchone()
 
 

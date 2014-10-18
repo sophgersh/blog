@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-<h1>A post</h1>
+<h1>{{ d['post']['title'] }}</h1>
+<p>{{ d['post']['content'] }}</p>
 {% endblock %}

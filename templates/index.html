@@ -2,4 +2,14 @@
 
 {% block body %}
 <h1>Home</h1>
+
+<form action="/posts/new" method="post">
+  <fieldset>
+    <label for="post-title">Title</label>
+    <input id="post-title" name="title" type="text" placeholder="My Wonderful Blog post">
+    <label for="post-content">Content</label>
+    <input id="post-content" name="content" placeholder="Blah blah blah...">
+    <button type="submit">New Blog Post</button>
+  </fieldset>
+</form>
 {% endblock %}

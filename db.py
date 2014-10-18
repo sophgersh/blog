@@ -23,10 +23,10 @@ def find_post(slug):
 def setup():
     queries = [
         '''CREATE TABLE posts (
-        id integer primary key,
-        title text,
-        content text,
-        slug text
+        id INTEGER PRIMARY KEY,
+        title TEXT NOT NULL,
+        content TEXT NOT NULL,
+        slug TEXT UNIQUE NOT NULL
         )'''
     ]
 

@@ -1,6 +1,8 @@
 # BLOG
 
-## Make sure you run `pip install python-slugify`
+## Install
+1. Run `db.setup()` to generate the db
+2. `pip install python-slugify`
 
 PAGE:
 

@@ -15,7 +15,7 @@ def get_db():
 
 def find_post(slug):
     query = 'SELECT * FROM posts WHERE slug = ?'
-    posts = get_db().cursor().execute(query, slug)
+    posts = get_db().execute(query, slug)
     return posts.fetchone()
 
 
@@ -31,9 +31,8 @@ def setup():
     ]
 
     db = _connect_to_database()
-    c = db.cursor()
     for query in queries:
-        c.execute(query)
+        db.execute(query)
 
     db.commit()
     db.close()

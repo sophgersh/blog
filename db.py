@@ -1,12 +1,21 @@
 import sqlite3
 
-conn = sqlite3.connect('blog.db')
-c = conn.cursor()
+from flask import g
+
+DATABASE = 'blog.db'
+
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = _connect_to_database()
+    db.row_factory = sqlite3.Row
+    return db
 
 
 def find_post(slug):
     query = 'SELECT * FROM posts WHERE slug = ?'
-    posts = c.execute(query, slug)
+    posts = get_db().cursor().execute(query, slug)
     return posts.fetchone()
 
 
@@ -21,7 +30,14 @@ def setup():
         )'''
     ]
 
+    db = _connect_to_database()
+    c = db.cursor()
     for query in queries:
         c.execute(query)
 
-    conn.commit()
+    db.commit()
+    db.close()
+
+
+def _connect_to_database():
+    return sqlite3.connect(DATABASE)

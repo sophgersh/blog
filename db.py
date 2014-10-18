@@ -19,6 +19,12 @@ def find_post(slug):
     return posts.fetchone()
 
 
+def most_recent_posts(n):
+    query = 'SELECT * FROM posts ORDER BY id DESC LIMIT ?'
+    posts = get_db().execute(query, n)
+    return posts
+
+
 # Use this only to initialize a new database for the first time
 def setup():
     queries = [

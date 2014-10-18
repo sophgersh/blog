@@ -7,7 +7,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    MAX_POSTS = 10
+    posts = db.most_recent_posts(MAX_POSTS)
+    return render_template('index.html', d={'posts': posts})
 
 
 @app.route('/<slug>')

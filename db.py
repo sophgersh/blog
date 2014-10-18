@@ -15,16 +15,19 @@ def get_db():
 
 
 def new_post(params):
-    query = "INSERT INTO posts (title, content, slug) VALUES ('?', '?', '?')"
+    query = "INSERT INTO posts (title, content, slug) VALUES (:title, :content, :slug)"
 
     slug = slugify(params['title'])
     params['slug'] = slug
-    get_db().execute(query, params)
-    return find_post(slug)
+
+    new = get_db().cursor().execute(query, params)
+    get_db().commit()
+
+    return new.fetchone()
 
 
 def find_post(slug):
-    query = 'SELECT * FROM posts WHERE slug = ?'
+    query = 'SELECT * FROM posts WHERE slug = ? LIMIT 1'
     posts = get_db().execute(query, (slug,))
     return posts.fetchone()
 

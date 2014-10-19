@@ -3,4 +3,22 @@
 {% block body %}
 <h1>{{ d['post']['title'] }}</h1>
 <p>{{ d['post']['content'] }}</p>
+
+<h3>Comments</h3>
+{% for comment in c['comment'] %}
+<div style="border:1px solid black;padding:1em;">{{  comment['content']  }}</div>
+{% endfor %}
+<form action="/posts/comment" method="post">
+  <fieldset>
+    <input type= "hidden" name= "Title" value ={{ d['post']['title'] }}> 
+    <label for="comments_comment">Comment</label>
+    <input id="comments_comment" name="comment" type="text" placeholder="Leave a Comment">
+    
+    <button type="submit">Comment</button>
+  </fieldset>
+</form>
+
 {% endblock %}
+
+
+

@@ -3,6 +3,8 @@ import sqlite3
 from flask import g
 from slugify import slugify
 
+
+
 DATABASE = 'blog.db'
 
 
@@ -34,14 +36,22 @@ def find_post(slug):
     query = 'SELECT * FROM posts WHERE slug = ? LIMIT 1'
     posts = get_db().execute(query, (slug,))
     return posts.fetchone()
-
-
 def most_recent_posts(n):
     query = 'SELECT * FROM posts ORDER BY id DESC LIMIT ?'
     posts = get_db().execute(query, (n,))
     return posts
+def post_comments(params):
+    query= "INSERT INTO comments(slug,content) VALUES(:Title,:content)"
+    get_db().execute(query, params)
+    get_db().commit()
+    
+    return params['Title']
 
-
+def find_comments(title):
+    query= 'SELECT content FROM comments WHERE slug == ?'
+    posts = get_db().execute(query, (title,))
+    
+    return  posts.fetchall() 
 # Use this only to initialize a new database for the first time
 def setup():
     queries = [
@@ -50,12 +60,18 @@ def setup():
         title TEXT NOT NULL,
         content TEXT NOT NULL,
         slug TEXT UNIQUE NOT NULL
+        )''','''CREATE TABLE comments (
+        id INTEGER PRIMARY KEY,
+        slug TEXT NOT NULL,
+        content TEXT NOT NULL
         )'''
     ]
-
+    
     db = _connect_to_database()
     for query in queries:
         db.execute(query)
+    
+       
 
     db.commit()
     db.close()

@@ -1,5 +1,5 @@
 from flask import flash, Flask, g, redirect, render_template, request
-
+from slugify import slugify
 import db
 
 app = Flask(__name__)
@@ -16,9 +16,24 @@ def index():
 @app.route('/<slug>')
 def post(slug):
     post = db.find_post(slug)
-    return render_template('post.html', d={'post': post})
+  
+    comment = db.find_comments(slug)
+    r={'post':post}
+    
+    return render_template('post.html', d={'post': post},c={'comment':comment})
 
-
+@app.route('/posts/comment',methods=['POST'])
+def comment():
+    params={}
+    
+    params['Title']=slugify(request.form['Title'])
+    params['content']=request.form['comment']
+   
+    slug = db.post_comments(params)
+    return redirect ('/%s' % slug )   
+    
+    
+    
 @app.route('/posts/new', methods=['POST'])
 def new_post():
     params = {}

@@ -10,7 +10,7 @@ def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = _connect_to_database()
-    db.row_factory = sqlite3.Row
+        db.row_factory = sqlite3.Row
     return db
 
 
@@ -21,8 +21,9 @@ def new_post(params):
     params['slug'] = slug
 
     try:
-        get_db().cursor().execute(query, params)
-        get_db().commit()
+        with get_db() as db:
+            db.cursor().execute(query, params)
+            db.commit()
     except sqlite3.IntegrityError:
         return None
 

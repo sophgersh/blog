@@ -20,16 +20,13 @@ def new_post(params):
     slug = slugify(params['title'])
     params['slug'] = slug
 
-    #check if slug is in there already
-    s = "SELECT count(*) FROM posts WHERE slug = ?"
-    get_db().cursor().execute(s , (slug,))
-    data=get_db().cursor().fetchone()[0]
-    if data == 0:
-          
-        new = get_db().cursor().execute(query, params)
+    try:
+        get_db().cursor().execute(query, params)
         get_db().commit()
+    except sqlite3.IntegrityError:
+        return None
 
-        return new.fetchone()
+    return find_post(slug)
 
 
 def find_post(slug):
@@ -65,6 +62,3 @@ def setup():
 
 def _connect_to_database():
     return sqlite3.connect(DATABASE)
-
-
-

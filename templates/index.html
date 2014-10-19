@@ -5,16 +5,21 @@
 
 {% for post in d['posts'] %}
 <h3><a href="/{{ post['slug'] }}">{{ post['title'] }}</a></h3>
-<p>{{ post['content'] }}</p>
+<p>{{ post['content'] |safe}}</p>
 <hr/>
 {% endfor %}
 
-<form action="/posts/new" method="post">
+<form action="/posts/new" method="post" id="posting">
   <fieldset>
-    <label for="post_title">Title</label>
-    <input id="post_title" name="title" type="text" placeholder="My Wonderful Blog post">
-    <label for="post_content">Content</label>
-    <input id="post_content" name="content" placeholder="Blah blah blah...">
+    <h2><label for="post_title">Title</label></h2>
+	<br>
+    <input id="post_title" name="title" type="text" placeholder="My Wonderful Blog post" maxlength="50">
+	<br>
+    <h3><label for="post_content">Content</label></h3>
+	<br>
+	<textarea rows="20" cols="50" name="content" form="posting"></textarea>
+	<br>
+	<br>
     <button type="submit">New Blog Post</button>
   </fieldset>
 </form>

@@ -1,7 +1,6 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-<h1>Home</h1>
 
 {% for post in d['posts'] %}
 <h3><a href="/{{ post['slug'] }}">{{ post['title'] }}</a></h3>

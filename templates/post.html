@@ -5,7 +5,7 @@
 <p>{{ d['post']['content'] |safe }}</p>
 
 <h2>Comments</h2>
-{% for comment in c['comment'] %}
+{% for comment in d['comments'] %}
 <div style="border:1px solid black;padding:1em;">{{  comment['content'] |safe }}</div>
 {% endfor %}
 <form action="/posts/comment" method="post" id="commenting">

@@ -24,7 +24,6 @@ def new_post(params):
     try:
         with get_db() as db:
             db.cursor().execute(query, params)
-            db.commit()
     except sqlite3.IntegrityError:
         return None
 
@@ -45,8 +44,8 @@ def most_recent_posts(n):
 
 def new_comment(params):
     query = 'INSERT INTO comments (content, post_id) VALUES (:content, :post_id)'
-    get_db().execute(query, params)
-    get_db().commit()
+    with get_db() as db:
+        db.execute(query, params)
 
 
 def find_comments(cid):

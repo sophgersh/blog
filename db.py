@@ -74,8 +74,8 @@ def setup():
         )''',
         '''CREATE TABLE comments (
         id INTEGER PRIMARY KEY,
-        content TEXT NOT NULL
-        post_id INTEGER NOT NULL,
+        content TEXT NOT NULL,
+        post_id INTEGER NOT NULL
         )'''
     ]
 

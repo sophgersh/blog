@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 
+{% block title %}
+<h1>Blog Posts </h1>
+{% endblock %}
+
 {% block body %}
 
 {% for post in d['posts'] %}
@@ -21,5 +25,7 @@
 	<br>
     <button type="submit">New Blog Post</button>
   </fieldset>
+  <p>
 </form>
+
 {% endblock %}

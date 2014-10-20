@@ -16,37 +16,36 @@ def index():
 @app.route('/<slug>')
 def post(slug):
     post = db.find_post(slug)
-  
-    comment = db.find_comments(slug)
-    r={'post':post}
-    
-    return render_template('post.html', d={'post': post},c={'comment':comment})
 
-@app.route('/posts/comment',methods=['POST'])
+    comment = db.find_comments(slug)
+
+    return render_template('post.html', d={'post': post}, c={'comment': comment})
+
+
+@app.route('/posts/comment', methods=['POST'])
 def comment():
-    params={}
-    
-    params['Title']=slugify(request.form['Title'])
-    params['content']=request.form['comment'].replace("\n","</p><p>")
-   
+    params = {}
+
+    params['Title'] = slugify(request.form['Title'])
+    params['content'] = request.form['comment'].replace("\n", "</p><p>")
+
     slug = db.post_comments(params)
-    return redirect ('/%s' % slug )   
-    
-    
-    
+    return redirect('/%s' % slug)
+
+
 @app.route('/posts/new', methods=['POST'])
 def new_post():
-	params = {}
-	params['title'] = request.form['title']
-	params['content'] = request.form['content'].replace("\n","</p><p>")
+    params = {}
+    params['title'] = request.form['title']
+    params['content'] = request.form['content'].replace("\n", "</p><p>")
 
-	post = db.new_post(params)
+    post = db.new_post(params)
 
-	if post:
-		return redirect('/%s' % post['slug'])
-	else:
-		flash('Invalid blog post')
-		return redirect('/')
+    if post:
+        return redirect('/%s' % post['slug'])
+    else:
+        flash('Invalid blog post')
+        return redirect('/')
 
 
 @app.teardown_appcontext

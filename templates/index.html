@@ -5,16 +5,18 @@
 {% endblock %}
 
 {% block body %}
-
-{% for post in d['posts'] %}
-<h3><a href="/{{ post['slug'] }}">{{ post['title'] }}</a></h3>
-<p>{{ post['content'] |safe}}</p>
-<hr/>
-{% endfor %}
-
+<fieldset>
+  {% for post in d['posts'] %}
+  <h3><a href="/{{ post['slug'] }}">{{ post['title'] }}</a></h3>
+  <p>{{ post['content'] |safe}}</p>
+  <hr/>
+  {% endfor %}
+</fieldset>
+<p><p>
+<h2 class="center">New Blog Post </h2>
 <form action="/posts/new" method="post" id="posting">
   <fieldset>
-    <h2><label for="post_title">Title</label></h2>
+    <h3><label for="post_title">Title</label></h3>
 	<br>
     <input id="post_title" name="title" type="text" placeholder="My Wonderful Blog post" maxlength="50">
 	<br>

@@ -15,17 +15,16 @@ def index():
 @app.route('/<slug>')
 def post(slug):
     post = db.find_post(slug)
+    comments = db.find_comments_for_post(post['id'])
 
-    comment = db.find_comments(slug)
-
-    return render_template('post.html', d={'post': post}, c={'comment': comment})
+    return render_template('post.html', d={'post': post, 'comments': comments})
 
 
 @app.route('/posts/comment', methods=['POST'])
 def comment():
-    params = {}
-
     post = db.find_post(request.form['post_slug'])
+
+    params = {}
     params['post_id'] = post['id']
     params['content'] = request.form['comment']
 

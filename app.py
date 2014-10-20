@@ -1,5 +1,4 @@
 from flask import flash, Flask, g, redirect, render_template, request
-from slugify import slugify
 import db
 
 app = Flask(__name__)
@@ -26,11 +25,12 @@ def post(slug):
 def comment():
     params = {}
 
-    params['Title'] = slugify(request.form['Title'])
-    params['content'] = request.form['comment'].replace("\n", "</p><p>")
+    post = db.find_post(request.form['post_slug'])
+    params['post_id'] = post['id']
+    params['content'] = request.form['comment']
 
-    slug = db.post_comments(params)
-    return redirect('/%s' % slug)
+    db.new_comment(params)
+    return redirect('/%s' % request.form['post_slug'])
 
 
 @app.route('/posts/new', methods=['POST'])

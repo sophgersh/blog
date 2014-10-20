@@ -43,17 +43,22 @@ def most_recent_posts(n):
     return posts
 
 
-def post_comments(params):
-    query = 'INSERT INTO comments (slug, content) VALUES (:Title,:content)'
+def new_comment(params):
+    query = 'INSERT INTO comments (content, post_id) VALUES (:content, :post_id)'
     get_db().execute(query, params)
     get_db().commit()
 
-    return params['Title']
+
+def find_comments(cid):
+    query = 'SELECT * FROM comments WHERE id = ?'
+    posts = get_db().execute(query, (cid,))
+
+    return posts.fetchall()
 
 
-def find_comments(title):
-    query = 'SELECT content FROM comments WHERE slug == ?'
-    posts = get_db().execute(query, (title,))
+def find_comments_for_post(post_id):
+    query = 'SELECT * FROM comments WHERE post_id = ?'
+    posts = get_db().execute(query, (post_id,))
 
     return posts.fetchall()
 
@@ -67,11 +72,10 @@ def setup():
         content TEXT NOT NULL,
         slug TEXT UNIQUE NOT NULL
         )''',
-
         '''CREATE TABLE comments (
         id INTEGER PRIMARY KEY,
-        slug TEXT NOT NULL,
         content TEXT NOT NULL
+        post_id INTEGER NOT NULL,
         )'''
     ]
 

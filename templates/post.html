@@ -10,7 +10,7 @@
 {% endfor %}
 <form action="/posts/comment" method="post" id="commenting">
   <fieldset>
-    <input type= "hidden" name= "Title" value ={{ d['post']['title'] }}> 
+    <input type="hidden" name="post_slug" value ={{ d['post']['slug'] }}> 
     <label for="comments_comment"><h3>Comment<h3></label>
 	<br>
 	<textarea rows="5" cols="50" maxlength="1000" id="comments_comment" name="comment" form="commenting"></textarea>

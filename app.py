@@ -31,13 +31,8 @@ def comment():
     params = {}
     params['post_id'] = post['id']
     params['content'] = request.form['comment']
-<<<<<<< HEAD
-    params['user']= request.form['user']
-    
-=======
     params['user'] = request.form['user']
 
->>>>>>> 852a25c374cb1332bab36787b62000e6d137fae8
     db.new_comment(params)
     return redirect('/%s' % request.form['post_slug'])
 
@@ -47,12 +42,8 @@ def new_post():
     params = {}
     params['title'] = request.form['title']
     params['content'] = request.form['content'].replace("\n", "</p><p>")
-<<<<<<< HEAD
-    
-=======
     params['username'] = request.form['username']
 
->>>>>>> 852a25c374cb1332bab36787b62000e6d137fae8
     post = db.new_post(params)
 
     if post:

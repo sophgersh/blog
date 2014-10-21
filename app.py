@@ -1,3 +1,4 @@
+
 from flask import flash, Flask, g, redirect, render_template, request
 import db
 
@@ -15,7 +16,10 @@ def index():
 @app.route('/<slug>')
 def post(slug):
     post = db.find_post(slug)
-    comments = db.find_comments_for_post(post['id'])
+    try:
+        comments = db.find_comments_for_post(post['id'])
+    except:
+        comments = ""
 
     return render_template('post.html', d={'post': post, 'comments': comments})
 
@@ -27,6 +31,7 @@ def comment():
     params = {}
     params['post_id'] = post['id']
     params['content'] = request.form['comment']
+    params['user'] = request.form['user']
 
     db.new_comment(params)
     return redirect('/%s' % request.form['post_slug'])

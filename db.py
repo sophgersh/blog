@@ -1,3 +1,4 @@
+
 import sqlite3
 
 from flask import g
@@ -43,7 +44,7 @@ def most_recent_posts(n):
 
 
 def new_comment(params):
-    query = 'INSERT INTO comments (content, post_id) VALUES (:content, :post_id)'
+    query = 'INSERT INTO comments (content, post_id,username) VALUES (:content, :post_id,:user)'
     with get_db() as db:
         db.execute(query, params)
 
@@ -74,7 +75,8 @@ def setup():
         '''CREATE TABLE comments (
         id INTEGER PRIMARY KEY,
         content TEXT NOT NULL,
-        post_id INTEGER NOT NULL
+        post_id INTEGER NOT NULL,
+        username TEXT NOT NULL
         )'''
     ]
 

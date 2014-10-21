@@ -19,8 +19,7 @@ def post(slug):
     try:
         comments = db.find_comments_for_post(post['id'])
     except:
-        comments=""
-
+        comments = ""
     return render_template('post.html', d={'post': post, 'comments': comments})
 
 

@@ -17,7 +17,7 @@ def get_db():
 
 
 def new_post(params):
-    query = "INSERT INTO posts (title, content, slug) VALUES (:title, :content, :slug)"
+    query = "INSERT INTO posts (title, content, slug, username) VALUES (:title, :content, :slug, :username)"
 
     slug = slugify(params['title'])
     params['slug'] = slug
@@ -70,7 +70,8 @@ def setup():
         id INTEGER PRIMARY KEY,
         title TEXT NOT NULL,
         content TEXT NOT NULL,
-        slug TEXT UNIQUE NOT NULL
+        slug TEXT UNIQUE NOT NULL,
+        username TEXT
         )''',
         '''CREATE TABLE comments (
         id INTEGER PRIMARY KEY,

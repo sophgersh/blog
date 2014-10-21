@@ -42,6 +42,7 @@ def new_post():
     params = {}
     params['title'] = request.form['title']
     params['content'] = request.form['content'].replace("\n", "</p><p>")
+    params['username'] = request.form['username']
 
     post = db.new_post(params)
 

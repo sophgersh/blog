@@ -3,6 +3,7 @@
 
 {% block body %}
 <h1>{{ d['post']['title'] }}</h1>
+<h3>By {{ d['post']['username'] }}</h3>
 <p>{{ d['post']['content'] |safe }}</p>
 
 <h2>Comments</h2>

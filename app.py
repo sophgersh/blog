@@ -5,12 +5,15 @@ import db
 app = Flask(__name__)
 app.secret_key = 'a'
 
-
 @app.route('/')
 def index():
+	return render_template('index.html')
+
+@app.route('/blog')
+def blog():
     MAX_POSTS = 10
     posts = db.most_recent_posts(MAX_POSTS)
-    return render_template('index.html', d={'posts': posts})
+    return render_template('blog.html', d={'posts': posts})
 
 
 @app.route('/<slug>')
@@ -31,13 +34,8 @@ def comment():
     params = {}
     params['post_id'] = post['id']
     params['content'] = request.form['comment']
-<<<<<<< HEAD
-    params['user']= request.form['user']
-    
-=======
     params['user'] = request.form['user']
 
->>>>>>> 852a25c374cb1332bab36787b62000e6d137fae8
     db.new_comment(params)
     return redirect('/%s' % request.form['post_slug'])
 
@@ -47,12 +45,8 @@ def new_post():
     params = {}
     params['title'] = request.form['title']
     params['content'] = request.form['content'].replace("\n", "</p><p>")
-<<<<<<< HEAD
-    
-=======
     params['username'] = request.form['username']
 
->>>>>>> 852a25c374cb1332bab36787b62000e6d137fae8
     post = db.new_post(params)
 
     if post:

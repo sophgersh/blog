@@ -1,3 +1,4 @@
+
 {% extends 'layout.html' %}
 
 {% block body %}
@@ -6,23 +7,27 @@
 <h3>By {{ d['post']['username'] }}</h3>
 <p>{{ d['post']['content'] |safe }}</p>
 </fieldset>
-<h2>Comments</h2>
-{% for comment in d['comments'] %}
-<div style="border:1px solid black;padding:1em;"><h3>{{ comment['username'] }} posted:</h3>{{  comment['content'] |safe }}</div>
-{% endfor %}
+
+
 <p>
 <form action="/posts/comment" method="post" id="commenting">
-  <fieldset>
+
+  <div class="posting">
     <input type="hidden" name="post_slug" value ={{ d['post']['slug'] }}>
+
+    <label for="comments_comment"><h3>Leave A Comment</h3></label>
      Username:<input name="user" value="Anonymous"></input><br>
-    <label for="comments_comment"><h3>Comment<h3></label>
 	<br>
 	<textarea rows="5" cols="50" maxlength="1000" id="comments_comment" name="comment" form="commenting"></textarea>
-    
-    <button type="submit">Comment</button>
-</fieldset>
+     <button type="submit">Comment</button>   
+
+</div>
+
 </form>
 
+<h2>Comments</h2>
+{% for comment in d['comments'] %}
+<div class="posting"><h3>{{ comment['username'] }} posted:</h3>{{  comment['content'] |safe }}</div>
+{% endfor %}
 {% endblock %}
-
 

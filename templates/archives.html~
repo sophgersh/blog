@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<h1>Archives </h1>
+{% endblock %}
+
+{% block body %}
+<fieldset>
+  {% for post in d['posts'] %}
+  <h4><a href="/{{ post['slug'] }}">{{ post['title'] }}</a></h4>
+  By {{ post['username'] }}
+  <hr/>
+  {% endfor %}
+</fieldset>

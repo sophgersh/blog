@@ -2,20 +2,34 @@
 <html lang="en">
   <head>
 <style>
-h1 {text-align:center;}
+.center {text-align:center; }
+.flashes {color: red; text-indent: 50px}
+body {background-color: #E6E6FA;}
+fieldset {background-color: #F0F0FE;}
+.posting {border: 1px solid black; padding:1em; background-color: #E0E0EE;}
 </style>
     <meta charset="utf-8">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
 <title>Blogs</title>
 </head>
-<div class="pure-menu pure-menu-open pure-menu-horizontal">
+<div style="background-color: #B0B0BE;" class="pure-menu pure-menu-open pure-menu-horizontal">
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/">Blogs</a></li>
+        <li><a href="/blog">Blogs</a></li>
+        <li><a href="/archives">Archives</a></li>
     </ul>
  </div>
 
+ {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div class=flashes>
+        {% for message in messages %}
+        <p>{{ message }}
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endwith %}
 
  <div>
     
@@ -25,23 +39,15 @@ h1 {text-align:center;}
    <div class="pure-u-3-5">
 
   <body>
-     <h1>
+     <h1 class="center">
     {% block title %}
     {% endblock %}
      </h1>
      
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      <ul class=flashes>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-    {% endwith %}
-
+ 
     {% block body %}
     {% endblock %}
+  
   </div>
   </div>
   </div>

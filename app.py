@@ -1,17 +1,23 @@
-
 from flask import flash, Flask, g, redirect, render_template, request
 import db
 
 app = Flask(__name__)
 app.secret_key = 'a'
 
-
 @app.route('/')
 def index():
+	return render_template('index.html')
+
+@app.route('/blog')
+def blog():
     MAX_POSTS = 10
     posts = db.most_recent_posts(MAX_POSTS)
-    return render_template('index.html', d={'posts': posts})
+    return render_template('blog.html', d={'posts': posts})
 
+@app.route('/archives')
+def archives():
+    posts = db.all_posts()
+    return render_template('archives.html',d={'posts':posts})
 
 @app.route('/<slug>')
 def post(slug):
@@ -22,7 +28,6 @@ def post(slug):
         comments = ""
 
     return render_template('post.html', d={'post': post, 'comments': comments})
-
 
 @app.route('/posts/comment', methods=['POST'])
 def comment():
@@ -50,7 +55,7 @@ def new_post():
         return redirect('/%s' % post['slug'])
     else:
         flash('Invalid blog post')
-        return redirect('/')
+        return redirect('/blog')
 
 
 @app.teardown_appcontext

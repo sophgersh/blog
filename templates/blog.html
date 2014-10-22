@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h2 class="center">New Blog Post </h2>
+<form action="/posts/new" method="post" id="posting">
+  <div class="posting">
+    <h3><label for="post_username">Username</label></h3>
+    <input id="post_username" name="username" type="text" value="Anonymous" placeholder="Joe Schmoe" maxlength="50">
+	<br>
+    <h3><label for="post_title">Title</label></h3>
+    <input id="post_title" name="title" type="text" placeholder="My Wonderful Blog post" maxlength="50">
+	<br>
+    <h3><label for="post_content">Content</label></h3>
+	<br>
+	<textarea rows="20" cols="50" name="content" form="posting"></textarea>
+	<br>
+	<br>
+    <button type="submit">New Blog Post</button>
+  </div>
+  <p>
+</form>
+
+
+<h1>Blog Posts </h1>
+
+
+
+<fieldset>
+  {% for post in d['posts'] %}
+  <h3><a href="/{{ post['slug'] }}">{{ post['title'] }}</a></h3>
+  <h4>By {{ post['username'] }}</h4>
+  <p>{{ post['content'] |safe}}</p>
+  <hr/>
+  {% endfor %}
+</fieldset>
+
+
+{% endblock %}

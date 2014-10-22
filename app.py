@@ -5,12 +5,15 @@ import db
 app = Flask(__name__)
 app.secret_key = 'a'
 
-
 @app.route('/')
 def index():
+	return render_template('index.html')
+
+@app.route('/blog')
+def blog():
     MAX_POSTS = 10
     posts = db.most_recent_posts(MAX_POSTS)
-    return render_template('index.html', d={'posts': posts})
+    return render_template('blog.html', d={'posts': posts})
 
 
 @app.route('/<slug>')

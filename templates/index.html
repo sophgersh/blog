@@ -1,36 +1,41 @@
-{% extends 'layout.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<style>
+.center {text-align:center; }
+.flashes {color: red; text-indent: 50px}
+body {background-color: #E6E6FA;}
+fieldset {background-color: #F0F0FE;}
+.homepage{ position: relative; top: 50%;}
+</style>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+<title>Blogs</title>
+</head>
 
-{% block title %}
-<h1>Blog Posts </h1>
-{% endblock %}
 
-{% block body %}
-<fieldset>
-  {% for post in d['posts'] %}
-  <h3><a href="/{{ post['slug'] }}">{{ post['title'] }}</a></h3>
-  <h4>By {{ post['username'] }}</h4>
-  <p>{{ post['content'] |safe}}</p>
-  <hr/>
-  {% endfor %}
-</fieldset>
-<p><p>
-<h2 class="center">New Blog Post </h2>
-<form action="/posts/new" method="post" id="posting">
-  <fieldset>
-    <h3><label for="post_username">Username</label></h3>
-    <input id="post_username" name="username" type="text" value="Anonymous" placeholder="Joe Schmoe" maxlength="50">
-	<br>
-    <h3><label for="post_title">Title</label></h3>
-    <input id="post_title" name="title" type="text" placeholder="My Wonderful Blog post" maxlength="50">
-	<br>
-    <h3><label for="post_content">Content</label></h3>
-	<br>
-	<textarea rows="20" cols="50" name="content" form="posting"></textarea>
-	<br>
-	<br>
-    <button type="submit">New Blog Post</button>
-  </fieldset>
-  <p>
-</form>
+ <div>
+    
 
-{% endblock %}
+  <div class="pure-g">
+   <div class="pure-u-1-5"></div>
+   <div class="pure-u-3-5">
+
+  <body>
+	<fieldset style="position: relative; margin-top: 20%">
+     <h1 class="center">
+		Welcome To Our Blog!
+     </h1>
+	<div style="background-color: #B0B0BE;" class="pure-menu pure-menu-open" align="center">
+	<ul>
+        <li><a href="/blog">Enter!</a></li>
+    </ul>
+	</div>
+	</fieldset>
+  
+  </div>
+  </div>
+  </div>
+  </body>
+</html>

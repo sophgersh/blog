@@ -15,6 +15,10 @@ def blog():
     posts = db.most_recent_posts(MAX_POSTS)
     return render_template('blog.html', d={'posts': posts})
 
+@app.route('/archives')
+def archives():
+    posts = db.all_posts()
+    return render_template('archives.html',d={'posts':posts})
 
 @app.route('/<slug>')
 def post(slug):
@@ -53,7 +57,7 @@ def new_post():
         return redirect('/%s' % post['slug'])
     else:
         flash('Invalid blog post')
-        return redirect('/')
+        return redirect('/blog')
 
 
 @app.teardown_appcontext

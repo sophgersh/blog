@@ -42,6 +42,11 @@ def most_recent_posts(n):
     posts = get_db().execute(query, (n,))
     return posts
 
+def all_posts():
+    query = 'SELECT * FROM posts'
+    posts = get_db().execute(query)
+    return posts
+
 
 def new_comment(params):
     query = 'INSERT INTO comments (content, post_id,username) VALUES (:content, :post_id,:user)'
